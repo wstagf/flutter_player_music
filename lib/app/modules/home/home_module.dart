@@ -1,6 +1,7 @@
 import 'package:flutter_player_music/app/modules/home/home_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_player_music/app/modules/home/home_page.dart';
+import 'package:flutter_player_music/app/modules/player_music/player_music_module.dart';
 
 class HomeModule extends ChildModule {
   @override
@@ -11,6 +12,7 @@ class HomeModule extends ChildModule {
   @override
   List<Router> get routers => [
         Router('/', child: (_, args) => HomePage()),
+        Router('/player', module: PlayerMusicModule()),
       ];
 
   static Inject get to => Inject<HomeModule>.of();

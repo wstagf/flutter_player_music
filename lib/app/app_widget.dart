@@ -9,6 +9,7 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
+      navigatorKey: Modular.navigatorKey,
       onGenerateRoute: Modular.generateRoute,
     );
   }
