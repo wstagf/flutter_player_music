@@ -6,8 +6,7 @@ import 'package:flutter_player_music/app/modules/player_music/player_music_page.
 
 main() {
   testWidgets('PlayerMusicPage has title', (WidgetTester tester) async {
-    await tester
-        .pumpWidget(buildTestableWidget(PlayerMusicPage(title: 'PlayerMusic')));
+    await tester.pumpWidget(buildTestableWidget(PlayerMusicPage()));
     final titleFinder = find.text('PlayerMusic');
     expect(titleFinder, findsOneWidget);
   });
