@@ -21,8 +21,24 @@ class _PlayerMusicPageState extends State<PlayerMusicPage> {
         children: <Widget>[
           buildImageHeader(),
           buildNameMusic(),
+          buildProgressbar()
         ],
       ),
+    );
+  }
+
+  Widget buildProgressbar() {
+    return Column(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 35),
+          child: LinearProgressIndicator(
+            backgroundColor: Colors.white,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+            value: 0.35,
+          ),
+        ),
+      ],
     );
   }
 
