@@ -21,7 +21,41 @@ class _PlayerMusicPageState extends State<PlayerMusicPage> {
         children: <Widget>[
           buildImageHeader(),
           buildNameMusic(),
-          buildProgressbar()
+          buildProgressbar(),
+          buildButtons()
+        ],
+      ),
+    );
+  }
+
+  Widget buildButtons() {
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Row(
+        children: <Widget>[
+          FlatButton(
+            child: Icon(
+              Icons.fast_rewind,
+              size: 40,
+            ),
+            onPressed: () {},
+          ),
+          Expanded(
+            child: FlatButton(
+              child: Icon(
+                Icons.play_circle_outline,
+                size: 40,
+              ),
+              onPressed: () {},
+            ),
+          ),
+          FlatButton(
+            child: Icon(
+              Icons.fast_forward,
+              size: 40,
+            ),
+            onPressed: () {},
+          ),
         ],
       ),
     );
@@ -31,13 +65,25 @@ class _PlayerMusicPageState extends State<PlayerMusicPage> {
     return Column(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 35),
+          padding: EdgeInsets.only(top: 30, right: 35, left: 35),
           child: LinearProgressIndicator(
             backgroundColor: Colors.white,
             valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
             value: 0.35,
           ),
         ),
+        Container(
+          padding: EdgeInsets.only(top: 10, right: 35, left: 35),
+          child: Row(
+            children: <Widget>[
+              Text('0:15'),
+              Expanded(
+                child: Container(),
+              ),
+              Text('2:35'),
+            ],
+          ),
+        )
       ],
     );
   }
