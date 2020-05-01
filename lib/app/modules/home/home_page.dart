@@ -24,7 +24,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             itemCount: 10,
             itemBuilder: (_, int index) {
               return ListTile(
-                onTap: () => Modular.to.pushNamed('/player'),
+                onTap: () => Modular.to.pushNamed('/player',
+                    arguments:
+                        'https://img.elo7.com.br/product/zoom/15D4C1F/adesivo-rock-legiao-urbana-1-x7cm-dire-straits.jpg'),
                 leading: Image.network(
                     'https://img.elo7.com.br/product/zoom/15D4C1F/adesivo-rock-legiao-urbana-1-x7cm-dire-straits.jpg'),
                 title: Text('Dois'),
