@@ -36,7 +36,7 @@ router.post('/', async function (req, res) {
 
 router.put('/:id/musica', async function (req, res) {
     try {
-        const bandaUpdate = await BandaModel.findByIdAndUpdate(req.params['id'], {
+        await BandaModel.findByIdAndUpdate(req.params['id'], {
             $push: {
                 musicas: {
                     _id: mongoose.Types.ObjectId(),
@@ -86,7 +86,7 @@ router.get('/musica/:id', async function (req, res) {
 
 router.delete('/:id', async function (req, res) {
     try {
-        const bandas = await BandaModel.findByIdAndRemove(req.params['id']).exec();
+        await BandaModel.findByIdAndRemove(req.params['id']).exec();
         res.send();
     } catch (error) {
         console.error(error);
@@ -94,6 +94,20 @@ router.delete('/:id', async function (req, res) {
     }
 });
 
-router.delete('/:id/musica/:musica');
+router.delete('/:id/musica/:musica', async function (req, res) {
+    try {
+        const bandas = await BandaModel.findByIdAndUpdate(req.params['id'], {
+            $pull: {
+                musicas: {
+                    _id: req.params['musica']
+                }
+            }
+        }).exec();
+        res.send();
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ 'message': 'Erro ao excluir musica', error: error })
+    }
+});
 
 module.exports = router;
