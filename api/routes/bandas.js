@@ -1,8 +1,30 @@
 const express = require('express');
 const router = express.Router();
+const BandaModel = require('../models/banda_model');
+const mongoose = require('mongoose');
+
 
 router.get('/');
-router.post('/');
+
+
+router.post('/', async function (req, res) {
+    try {
+        const bandaModel = new BandaModel({
+            _id: mongoose.Types.ObjectId(),
+            nome: req.body.nome,
+            imagem: req.body.imagem,
+            musicas: []
+        });
+
+        await bandaModel.save()
+        res.status(200).send();
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ 'message': 'Erro ao cadastrar banda', error: error })
+    }
+});
+
+
 router.put('/:id/musica');
 router.get('/:id');
 router.get('/musica/:id');
