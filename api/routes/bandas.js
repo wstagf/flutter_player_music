@@ -67,7 +67,23 @@ router.get('/:id', async function (req, res) {
 });
 
 
-router.get('/musica/:id');
+router.get('/musica/:id', async function (req, res) {
+    try {
+        const banda = await BandaModel.findOne({ 'musicas._id': req.params['id'] }, { 'musicas.$': 1 }).exec()
+
+        if (banda && banda.musicas) {
+            res.json(banda.musicas[0]);
+        } else {
+            console.error(banda);
+            res.send({})
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ 'message': 'Erro ao buscar musica', error: error })
+    }
+});
+
 router.delete('/:id');
 router.delete('/:id/musica/:musica');
 
