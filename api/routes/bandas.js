@@ -34,7 +34,28 @@ router.post('/', async function (req, res) {
 });
 
 
-router.put('/:id/musica');
+router.put('/:id/musica', async function (req, res) {
+    try {
+        const bandaUpdate = await BandaModel.findByIdAndUpdate(req.params['id'], {
+            $push: {
+                musicas: {
+                    _id: mongoose.Types.ObjectId(),
+                    nome: req.body.nome,
+                    imagem: req.body.imagem,
+                    url: req.body.url,
+                }
+            }
+        }).exec();
+
+        res.send({ message: 'Musica adicionada com sucesso' });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ 'message': 'Erro ao inserir musica em uma banda', error: error })
+    }
+});
+
+
 router.get('/:id');
 router.get('/musica/:id');
 router.delete('/:id');
