@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 router.get('/', async function (req, res) {
     try {
         const bandas = await BandaModel.find({}, { _id: 1, nome: 1, imagem: 1 })
-            .exec()
+            .exec();
         res.json(bandas);
     } catch (error) {
         console.error(error);
@@ -25,7 +25,7 @@ router.post('/', async function (req, res) {
             musicas: []
         });
 
-        await bandaModel.save()
+        await bandaModel.save();
         res.status(200).send();
     } catch (error) {
         console.error(error);
@@ -58,7 +58,7 @@ router.put('/:id/musica', async function (req, res) {
 
 router.get('/:id', async function (req, res) {
     try {
-        const bandas = await BandaModel.findById(req.params['id']).exec()
+        const bandas = await BandaModel.findById(req.params['id']).exec();
         res.json(bandas);
     } catch (error) {
         console.error(error);
@@ -69,7 +69,7 @@ router.get('/:id', async function (req, res) {
 
 router.get('/musica/:id', async function (req, res) {
     try {
-        const banda = await BandaModel.findOne({ 'musicas._id': req.params['id'] }, { 'musicas.$': 1 }).exec()
+        const banda = await BandaModel.findOne({ 'musicas._id': req.params['id'] }, { 'musicas.$': 1 }).exec();
 
         if (banda && banda.musicas) {
             res.json(banda.musicas[0]);
@@ -84,7 +84,16 @@ router.get('/musica/:id', async function (req, res) {
     }
 });
 
-router.delete('/:id');
+router.delete('/:id', async function (req, res) {
+    try {
+        const bandas = await BandaModel.findByIdAndRemove(req.params['id']).exec();
+        res.send();
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ 'message': 'Erro ao excluir banda', error: error })
+    }
+});
+
 router.delete('/:id/musica/:musica');
 
 module.exports = router;
