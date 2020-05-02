@@ -4,7 +4,16 @@ const BandaModel = require('../models/banda_model');
 const mongoose = require('mongoose');
 
 
-router.get('/');
+router.get('/', async function (req, res) {
+    try {
+        const bandas = await BandaModel.find({}, { _id: 1, nome: 1, imagem: 1 })
+            .exec()
+        res.json(bandas);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ 'message': 'Erro ao buscar banda', error: error })
+    }
+});
 
 
 router.post('/', async function (req, res) {
