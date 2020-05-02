@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_player_music/app/models/banda_model.dart';
 
 import 'home_controller.dart';
 
@@ -13,6 +14,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.buscartodas();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -20,19 +28,49 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           backgroundColor: Colors.black,
         ),
         backgroundColor: Colors.black,
-        body: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (_, int index) {
-              return ListTile(
-                onTap: () => Modular.to.pushNamed('/player',
-                    arguments:
-                        'https://img.elo7.com.br/product/zoom/15D4C1F/adesivo-rock-legiao-urbana-1-x7cm-dire-straits.jpg'),
-                leading: Image.network(
+        body: FutureBuilder<List<BandaModel>>(
+          future: controller.bandasFuture,
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+                break;
+              case ConnectionState.done:
+                if (snapshot.hasData) {
+                  return _buildListBandas(snapshot.data);
+                } else {
+                  print(snapshot.data);
+                  return Container(
+                    child: Text('Não há musicas'),
+                  );
+                }
+                break;
+              default:
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+                break;
+            }
+          },
+        ));
+  }
+
+  ListView _buildListBandas(List<BandaModel> data) {
+    return ListView.builder(
+        itemCount: 10,
+        itemBuilder: (_, int index) {
+          return ListTile(
+            onTap: () => Modular.to.pushNamed('/player',
+                arguments:
                     'https://img.elo7.com.br/product/zoom/15D4C1F/adesivo-rock-legiao-urbana-1-x7cm-dire-straits.jpg'),
-                title: Text('Dois'),
-                subtitle: Text('Legião Urbana'),
-                contentPadding: EdgeInsets.all(10),
-              );
-            }));
+            leading: Image.network(
+                'https://img.elo7.com.br/product/zoom/15D4C1F/adesivo-rock-legiao-urbana-1-x7cm-dire-straits.jpg'),
+            title: Text('Dois'),
+            subtitle: Text('Legião Urbana'),
+            contentPadding: EdgeInsets.all(10),
+          );
+        });
   }
 }
