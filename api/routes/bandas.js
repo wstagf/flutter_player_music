@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 router.get('/', async function (req, res) {
     try {
-        const bandas = await BandaModel.find({}, { _id: 1, nome: 1, imagem: 1 })
+        const bandas = await BandaModel.find({}, { _id: 1, nome: 1, imagem: 1, album: 1 })
             .exec();
         res.json(bandas);
     } catch (error) {
@@ -22,6 +22,7 @@ router.post('/', async function (req, res) {
             _id: mongoose.Types.ObjectId(),
             nome: req.body.nome,
             imagem: req.body.imagem,
+            album: req.body.album,
             musicas: []
         });
 

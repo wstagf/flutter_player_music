@@ -14,6 +14,7 @@ const bandaSchema = mongoose.Schema(
         _id: mongoose.Types.ObjectId,
         nome: String,
         imagem: String,
+        album: String,
         musicas: [musicaSchema]
     }
 );
