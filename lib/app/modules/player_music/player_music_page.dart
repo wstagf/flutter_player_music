@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_player_music/app/models/banda_model.dart';
+
+import '../../../environments.dart';
 
 class PlayerMusicPage extends StatefulWidget {
-  final String url;
-  const PlayerMusicPage({Key key, this.url = ""}) : super(key: key);
+  final BandaModel banda;
+  const PlayerMusicPage({Key key, this.banda}) : super(key: key);
 
   @override
   _PlayerMusicPageState createState() => _PlayerMusicPageState();
@@ -14,7 +17,7 @@ class _PlayerMusicPageState extends State<PlayerMusicPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('Tocando musica' + widget.url),
+        title: Text('Tocando musica' + widget.banda.nome),
       ),
       backgroundColor: Colors.black,
       body: Column(
@@ -93,13 +96,13 @@ class _PlayerMusicPageState extends State<PlayerMusicPage> {
       children: <Widget>[
         Container(
           child: Text(
-            'Dois',
+            widget.banda.nome,
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
         ),
         Container(
           child: Text(
-            'Legião Urbana',
+            widget.banda.nome,
             style: TextStyle(
               fontSize: 20,
             ),
@@ -118,7 +121,8 @@ class _PlayerMusicPageState extends State<PlayerMusicPage> {
         decoration: BoxDecoration(
           color: Colors.yellow,
           image: DecorationImage(
-              image: NetworkImage(widget.url), fit: BoxFit.cover),
+              image: NetworkImage(base_url + widget.banda.imagem),
+              fit: BoxFit.cover),
           borderRadius: BorderRadius.circular(6),
           boxShadow: [
             BoxShadow(

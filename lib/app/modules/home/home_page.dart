@@ -64,9 +64,14 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         itemBuilder: (_, int index) {
           var band = data[index];
           return ListTile(
-            onTap: () => Modular.to
-                .pushNamed('/player', arguments: base_url + band.imagem),
-            leading: Image.network(base_url + band.imagem),
+            onTap: () => Modular.to.pushNamed('/player', arguments: band),
+            leading: Container(
+              width: MediaQuery.of(context).size.width * 0.2,
+              child: Image.network(
+                base_url + band.imagem,
+                fit: BoxFit.contain,
+              ),
+            ),
             title: Text(band.nome),
             subtitle: Text(band.album),
             contentPadding: EdgeInsets.all(10),
