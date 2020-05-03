@@ -11,6 +11,7 @@ BandaModel _$BandaModelFromJson(Map<String, dynamic> json) {
     id: json['_id'] as String,
     nome: json['nome'] as String,
     imagem: json['imagem'] as String,
+    album: json['album'] as String,
     musicas: (json['musicas'] as List)
         ?.map((e) =>
             e == null ? null : MusicaModel.fromJson(e as Map<String, dynamic>))
@@ -23,5 +24,6 @@ Map<String, dynamic> _$BandaModelToJson(BandaModel instance) =>
       '_id': instance.id,
       'nome': instance.nome,
       'imagem': instance.imagem,
+      'album': instance.album,
       'musicas': instance.musicas,
     };

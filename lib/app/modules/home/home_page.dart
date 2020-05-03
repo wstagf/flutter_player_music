@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_player_music/app/models/banda_model.dart';
+import 'package:flutter_player_music/environments.dart';
 
 import 'home_controller.dart';
 
@@ -59,16 +60,15 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
   ListView _buildListBandas(List<BandaModel> data) {
     return ListView.builder(
-        itemCount: 10,
+        itemCount: data.length,
         itemBuilder: (_, int index) {
+          var band = data[index];
           return ListTile(
-            onTap: () => Modular.to.pushNamed('/player',
-                arguments:
-                    'https://img.elo7.com.br/product/zoom/15D4C1F/adesivo-rock-legiao-urbana-1-x7cm-dire-straits.jpg'),
-            leading: Image.network(
-                'https://img.elo7.com.br/product/zoom/15D4C1F/adesivo-rock-legiao-urbana-1-x7cm-dire-straits.jpg'),
-            title: Text('Dois'),
-            subtitle: Text('Legião Urbana'),
+            onTap: () => Modular.to
+                .pushNamed('/player', arguments: base_url + band.imagem),
+            leading: Image.network(base_url + band.imagem),
+            title: Text(band.nome),
+            subtitle: Text(band.album),
             contentPadding: EdgeInsets.all(10),
           );
         });

@@ -6,13 +6,13 @@ class BandaRepository {
   Future<List<BandaModel>> buscarTodasBandas() {
     var dio = Dio();
 
-    return dio.get(base_url + "/bandas").then((value) =>
+    return dio.get(base_url + "bandas").then((value) =>
         value.data.map<BandaModel>((b) => BandaModel.fromJson(b)).toList());
   }
 
   Future<BandaModel> buscarBandaPorId(String id) {
     return Dio()
-        .get('base_url + "/bandas/$id')
+        .get('$base_url + "bandas/$id')
         .then((value) => BandaModel.fromJson(value.data));
   }
 }

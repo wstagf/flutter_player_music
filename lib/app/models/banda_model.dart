@@ -10,12 +10,14 @@ class BandaModel {
   String id;
   String nome;
   String imagem;
+  String album;
   List<MusicaModel> musicas;
 
   BandaModel({
     this.id,
     this.nome,
     this.imagem,
+    this.album,
     this.musicas,
   });
 
