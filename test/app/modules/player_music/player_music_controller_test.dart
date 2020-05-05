@@ -14,14 +14,14 @@ void main() {
   });
 
   group('PlayerMusicController Test', () {
-    test("First Test", () {
-      expect(playermusic, isInstanceOf<PlayerMusicController>());
-    });
+    // test("First Test", () {
+    //   expect(playermusic, isInstanceOf<PlayerMusicController>());
+    // });
 
-    test("Set Value", () {
-      expect(playermusic.value, equals(0));
-      playermusic.increment();
-      expect(playermusic.value, equals(1));
-    });
+    // test("Set Value", () {
+    //   expect(playermusic.value, equals(0));
+    //   playermusic.increment();
+    //   expect(playermusic.value, equals(1));
+    // });
   });
 }
