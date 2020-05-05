@@ -161,7 +161,7 @@ class _PlayerMusicPageState
         width: MediaQuery.of(this.context).size.width,
         height: MediaQuery.of(this.context).size.height * 0.4,
         decoration: BoxDecoration(
-          color: Colors.yellow,
+          color: Colors.grey[600],
           image: DecorationImage(
               image: NetworkImage(base_url + widget.banda.imagem),
               fit: BoxFit.scaleDown),
