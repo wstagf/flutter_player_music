@@ -78,7 +78,7 @@ class _PlayerMusicPageState
         children: <Widget>[
           FlatButton(
             child: Icon(
-              Icons.fast_rewind,
+              Icons.skip_previous,
               size: 40,
             ),
             onPressed: () {},
@@ -96,7 +96,7 @@ class _PlayerMusicPageState
           ),
           FlatButton(
             child: Icon(
-              Icons.fast_forward,
+              Icons.skip_next,
               size: 40,
             ),
             onPressed: () {},
