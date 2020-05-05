@@ -1,7 +1,10 @@
+import 'package:audioplayer2/audioplayer2.dart';
 import 'package:flutter_player_music/app/models/banda_model.dart';
 import 'package:flutter_player_music/app/models/musica_model.dart';
 import 'package:flutter_player_music/app/repositories/banda_repository.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../../environments.dart';
 
 part 'player_music_controller.g.dart';
 
@@ -30,4 +33,23 @@ abstract class _PlayerMusicBase with Store {
   @computed
   MusicaModel get musica =>
       bandaModel != null ? bandaModel.musicas[faixa] : null;
+
+  @observable
+  AudioPlayer audioPlayer = AudioPlayer();
+
+  @observable
+  bool musicaTocando = false;
+
+  @action
+  Future<void> tocarOuPausarMusica() async {
+    if (musica != null) {
+      if (musicaTocando) {
+        await audioPlayer.pause();
+        musicaTocando = false;
+      } else {
+        await audioPlayer.play(base_url + musica.url);
+        musicaTocando = true;
+      }
+    }
+  }
 }

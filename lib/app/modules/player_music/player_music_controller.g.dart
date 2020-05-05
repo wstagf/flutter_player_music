@@ -66,6 +66,40 @@ mixin _$PlayerMusicController on _PlayerMusicBase, Store {
     }, _$faixaAtom, name: '${_$faixaAtom.name}_set');
   }
 
+  final _$audioPlayerAtom = Atom(name: '_PlayerMusicBase.audioPlayer');
+
+  @override
+  AudioPlayer get audioPlayer {
+    _$audioPlayerAtom.context.enforceReadPolicy(_$audioPlayerAtom);
+    _$audioPlayerAtom.reportObserved();
+    return super.audioPlayer;
+  }
+
+  @override
+  set audioPlayer(AudioPlayer value) {
+    _$audioPlayerAtom.context.conditionallyRunInAction(() {
+      super.audioPlayer = value;
+      _$audioPlayerAtom.reportChanged();
+    }, _$audioPlayerAtom, name: '${_$audioPlayerAtom.name}_set');
+  }
+
+  final _$musicaTocandoAtom = Atom(name: '_PlayerMusicBase.musicaTocando');
+
+  @override
+  bool get musicaTocando {
+    _$musicaTocandoAtom.context.enforceReadPolicy(_$musicaTocandoAtom);
+    _$musicaTocandoAtom.reportObserved();
+    return super.musicaTocando;
+  }
+
+  @override
+  set musicaTocando(bool value) {
+    _$musicaTocandoAtom.context.conditionallyRunInAction(() {
+      super.musicaTocando = value;
+      _$musicaTocandoAtom.reportChanged();
+    }, _$musicaTocandoAtom, name: '${_$musicaTocandoAtom.name}_set');
+  }
+
   final _$buscarBandaAsyncAction = AsyncAction('buscarBanda');
 
   @override
@@ -73,10 +107,18 @@ mixin _$PlayerMusicController on _PlayerMusicBase, Store {
     return _$buscarBandaAsyncAction.run(() => super.buscarBanda(id));
   }
 
+  final _$tocarOuPausarMusicaAsyncAction = AsyncAction('tocarOuPausarMusica');
+
+  @override
+  Future<void> tocarOuPausarMusica() {
+    return _$tocarOuPausarMusicaAsyncAction
+        .run(() => super.tocarOuPausarMusica());
+  }
+
   @override
   String toString() {
     final string =
-        'bandaModel: ${bandaModel.toString()},bandFuture: ${bandFuture.toString()},faixa: ${faixa.toString()},musica: ${musica.toString()}';
+        'bandaModel: ${bandaModel.toString()},bandFuture: ${bandFuture.toString()},faixa: ${faixa.toString()},audioPlayer: ${audioPlayer.toString()},musicaTocando: ${musicaTocando.toString()},musica: ${musica.toString()}';
     return '{$string}';
   }
 }

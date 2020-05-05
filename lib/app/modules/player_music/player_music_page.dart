@@ -86,10 +86,12 @@ class _PlayerMusicPageState
           Expanded(
             child: FlatButton(
               child: Icon(
-                Icons.play_circle_outline,
+                controller.musicaTocando
+                    ? Icons.pause_circle_outline
+                    : Icons.play_circle_outline,
                 size: 40,
               ),
-              onPressed: () {},
+              onPressed: () => controller.tocarOuPausarMusica(),
             ),
           ),
           FlatButton(
@@ -136,7 +138,7 @@ class _PlayerMusicPageState
       children: <Widget>[
         Container(
           child: Text(
-            widget.banda.nome,
+            musica.nome,
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
         ),
