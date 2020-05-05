@@ -12,7 +12,7 @@ class BandaRepository {
 
   Future<BandaModel> buscarBandaPorId(String id) {
     return Dio()
-        .get('$base_url + "bandas/$id')
+        .get(base_url + "bandas/" + id)
         .then((value) => BandaModel.fromJson(value.data));
   }
 }
