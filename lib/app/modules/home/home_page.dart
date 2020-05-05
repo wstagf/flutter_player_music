@@ -43,7 +43,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   return _buildListBandas(snapshot.data);
                 } else {
                   print(snapshot.data);
-                  return Container(
+                  return Center(
                     child: Text('Não há musicas'),
                   );
                 }
