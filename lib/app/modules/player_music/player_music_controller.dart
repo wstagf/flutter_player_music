@@ -23,4 +23,11 @@ abstract class _PlayerMusicBase with Store {
     bandFuture = ObservableFuture(bandaRepository.buscarBandaPorId(id));
     bandaModel = await bandFuture;
   }
+
+  @observable
+  int faixa = 0;
+
+  @computed
+  MusicaModel get musica =>
+      bandaModel != null ? bandaModel.musicas[faixa] : null;
 }

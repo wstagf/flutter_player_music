@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_player_music/app/models/banda_model.dart';
+import 'package:flutter_player_music/app/models/musica_model.dart';
+import 'package:flutter_player_music/app/modules/player_music/player_music_controller.dart';
 
 import '../../../environments.dart';
 
@@ -11,7 +15,14 @@ class PlayerMusicPage extends StatefulWidget {
   _PlayerMusicPageState createState() => _PlayerMusicPageState();
 }
 
-class _PlayerMusicPageState extends State<PlayerMusicPage> {
+class _PlayerMusicPageState
+    extends ModularState<PlayerMusicPage, PlayerMusicController> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    controller.buscarBanda(widget.banda.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,18 +31,47 @@ class _PlayerMusicPageState extends State<PlayerMusicPage> {
         title: Text('Tocando musica' + widget.banda.nome),
       ),
       backgroundColor: Colors.black,
-      body: Column(
-        children: <Widget>[
-          buildImageHeader(),
-          buildNameMusic(),
-          buildProgressbar(),
-          buildButtons()
-        ],
+      body: FutureBuilder(
+        future: controller.bandFuture,
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+              break;
+            case ConnectionState.done:
+              if (snapshot.hasData) {
+                return Observer(builder: (_) {
+                  var musica = controller.musica;
+                  return Column(
+                    children: <Widget>[
+                      buildImageHeader(musica),
+                      buildNameMusic(musica),
+                      buildProgressbar(musica),
+                      buildButtons(musica)
+                    ],
+                  );
+                });
+              } else {
+                print(snapshot.data);
+                return Center(
+                  child: Text('Não há musicas nesta banda'),
+                );
+              }
+              break;
+            default:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+              break;
+          }
+        },
       ),
     );
   }
 
-  Widget buildButtons() {
+  Widget buildButtons(MusicaModel musica) {
     return Container(
       padding: EdgeInsets.all(20),
       child: Row(
@@ -64,7 +104,7 @@ class _PlayerMusicPageState extends State<PlayerMusicPage> {
     );
   }
 
-  Widget buildProgressbar() {
+  Widget buildProgressbar(MusicaModel musica) {
     return Column(
       children: <Widget>[
         Container(
@@ -91,7 +131,7 @@ class _PlayerMusicPageState extends State<PlayerMusicPage> {
     );
   }
 
-  Widget buildNameMusic() {
+  Widget buildNameMusic(MusicaModel musica) {
     return Column(
       children: <Widget>[
         Container(
@@ -112,7 +152,7 @@ class _PlayerMusicPageState extends State<PlayerMusicPage> {
     );
   }
 
-  Container buildImageHeader() {
+  Container buildImageHeader(MusicaModel musica) {
     return Container(
       padding: EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 20),
       child: Container(
@@ -122,7 +162,7 @@ class _PlayerMusicPageState extends State<PlayerMusicPage> {
           color: Colors.yellow,
           image: DecorationImage(
               image: NetworkImage(base_url + widget.banda.imagem),
-              fit: BoxFit.cover),
+              fit: BoxFit.scaleDown),
           borderRadius: BorderRadius.circular(6),
           boxShadow: [
             BoxShadow(
