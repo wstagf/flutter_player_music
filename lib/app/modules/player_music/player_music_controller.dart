@@ -97,4 +97,11 @@ abstract class _PlayerMusicBase with Store {
   Future<void> monitorarProgressoDaMusica(Duration d) async {
     tempoDaMusica = d;
   }
+
+  @computed
+  double get totalTempoDecorrido => duracaoMusica != null
+      ? (duracaoMusica.inSeconds > 0
+          ? duracaoMusica.inSeconds.toDouble() * 1 / tempoDaMusica.inSeconds
+          : 0)
+      : 0;
 }

@@ -25,6 +25,12 @@ mixin _$PlayerMusicController on _PlayerMusicBase, Store {
   String get tempoProgredido => (_$tempoProgredidoComputed ??=
           Computed<String>(() => super.tempoProgredido))
       .value;
+  Computed<double> _$totalTempoDecorridoComputed;
+
+  @override
+  double get totalTempoDecorrido => (_$totalTempoDecorridoComputed ??=
+          Computed<double>(() => super.totalTempoDecorrido))
+      .value;
 
   final _$bandaModelAtom = Atom(name: '_PlayerMusicBase.bandaModel');
 
@@ -172,7 +178,7 @@ mixin _$PlayerMusicController on _PlayerMusicBase, Store {
   @override
   String toString() {
     final string =
-        'bandaModel: ${bandaModel.toString()},bandFuture: ${bandFuture.toString()},faixa: ${faixa.toString()},audioPlayer: ${audioPlayer.toString()},musicaTocando: ${musicaTocando.toString()},duracaoMusica: ${duracaoMusica.toString()},tempoDaMusica: ${tempoDaMusica.toString()},musica: ${musica.toString()},tempoTotal: ${tempoTotal.toString()},tempoProgredido: ${tempoProgredido.toString()}';
+        'bandaModel: ${bandaModel.toString()},bandFuture: ${bandFuture.toString()},faixa: ${faixa.toString()},audioPlayer: ${audioPlayer.toString()},musicaTocando: ${musicaTocando.toString()},duracaoMusica: ${duracaoMusica.toString()},tempoDaMusica: ${tempoDaMusica.toString()},musica: ${musica.toString()},tempoTotal: ${tempoTotal.toString()},tempoProgredido: ${tempoProgredido.toString()},totalTempoDecorrido: ${totalTempoDecorrido.toString()}';
     return '{$string}';
   }
 }

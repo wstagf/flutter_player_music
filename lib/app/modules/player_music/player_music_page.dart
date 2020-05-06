@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_player_music/app/models/banda_model.dart';
 import 'package:flutter_player_music/app/models/musica_model.dart';
 import 'package:flutter_player_music/app/modules/player_music/player_music_controller.dart';
+import 'package:seekbar/seekbar.dart';
 
 import '../../../environments.dart';
 
@@ -113,10 +114,10 @@ class _PlayerMusicPageState
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(top: 30, right: 35, left: 35),
-          child: LinearProgressIndicator(
-            backgroundColor: Colors.white,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
-            value: 0.35,
+          child: SeekBar(
+            value: controller.totalTempoDecorrido,
+            onStartTrackingTouch: () {},
+            onProgressChanged: (value) {},
           ),
         ),
         Container(
