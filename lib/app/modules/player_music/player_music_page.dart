@@ -21,6 +21,9 @@ class _PlayerMusicPageState
   void initState() {
     // TODO: implement initState
     controller.buscarBanda(widget.banda.id);
+
+    controller.audioPlayer.onAudioPositionChanged
+        .listen((d) => controller.monitorarProgressoDaMusica(d));
   }
 
   @override
@@ -54,7 +57,6 @@ class _PlayerMusicPageState
                   );
                 });
               } else {
-                print(snapshot.data);
                 return Center(
                   child: Text('Não há musicas nesta banda'),
                 );
@@ -121,11 +123,11 @@ class _PlayerMusicPageState
           padding: EdgeInsets.only(top: 30, right: 40, left: 35),
           child: Row(
             children: <Widget>[
-              Text('0:15'),
+              Text(controller.tempoProgredido),
               Expanded(
                 child: Container(),
               ),
-              Text(controller.tempoTotal()),
+              Text(controller.tempoTotal),
             ],
           ),
         )

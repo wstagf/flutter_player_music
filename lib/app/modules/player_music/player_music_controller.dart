@@ -43,8 +43,8 @@ abstract class _PlayerMusicBase with Store {
   @observable
   Duration duracaoMusica;
 
-  @action
-  String tempoTotal() {
+  @computed
+  String get tempoTotal {
     if (duracaoMusica != null) {
       int segundosInt = duracaoMusica.inSeconds.remainder(60);
       String segundosString = '';
@@ -59,25 +59,6 @@ abstract class _PlayerMusicBase with Store {
     }
   }
 
-  @observable
-  Duration tempoDaMusica;
-
-  // @action
-  // String get tempodaMusica => {
-  //   if (duracaoMusica != null) {
-  //     int segundosInt = duracaoMusica.inSeconds.remainder(60);
-  //     String segundosString = '';
-  //     if (segundosInt < 10) {
-  //       segundosString = '0' + segundosInt.toString();
-  //     } else {
-  //       segundosString = segundosInt.toString();
-  //     }
-  //     return '${duracaoMusica.inMinutes.remainder(60)}:${segundosString}';
-  //   } else {
-  //     return '0:00';
-  //   }
-  // }
-
   @action
   Future<void> tocarOuPausarMusica() async {
     if (musica != null) {
@@ -86,10 +67,34 @@ abstract class _PlayerMusicBase with Store {
         musicaTocando = false;
       } else {
         await audioPlayer.play(base_url + musica.url);
-        Future.delayed(Duration(milliseconds: 500),
+        Future.delayed(Duration(milliseconds: 20),
             () => duracaoMusica = audioPlayer.duration);
         musicaTocando = true;
       }
     }
+  }
+
+  @observable
+  Duration tempoDaMusica = Duration();
+
+  @computed
+  String get tempoProgredido {
+    if (tempoDaMusica != null) {
+      int segundosInt = tempoDaMusica.inSeconds.remainder(60);
+      String segundosString = '';
+      if (segundosInt < 10) {
+        segundosString = '0' + segundosInt.toString();
+      } else {
+        segundosString = segundosInt.toString();
+      }
+      return '${tempoDaMusica.inMinutes.remainder(60)}:${segundosString}';
+    } else {
+      return '0:00';
+    }
+  }
+
+  @action
+  Future<void> monitorarProgressoDaMusica(Duration d) async {
+    tempoDaMusica = d;
   }
 }

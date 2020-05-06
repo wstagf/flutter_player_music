@@ -14,6 +14,17 @@ mixin _$PlayerMusicController on _PlayerMusicBase, Store {
   @override
   MusicaModel get musica =>
       (_$musicaComputed ??= Computed<MusicaModel>(() => super.musica)).value;
+  Computed<String> _$tempoTotalComputed;
+
+  @override
+  String get tempoTotal =>
+      (_$tempoTotalComputed ??= Computed<String>(() => super.tempoTotal)).value;
+  Computed<String> _$tempoProgredidoComputed;
+
+  @override
+  String get tempoProgredido => (_$tempoProgredidoComputed ??=
+          Computed<String>(() => super.tempoProgredido))
+      .value;
 
   final _$bandaModelAtom = Atom(name: '_PlayerMusicBase.bandaModel');
 
@@ -100,6 +111,40 @@ mixin _$PlayerMusicController on _PlayerMusicBase, Store {
     }, _$musicaTocandoAtom, name: '${_$musicaTocandoAtom.name}_set');
   }
 
+  final _$duracaoMusicaAtom = Atom(name: '_PlayerMusicBase.duracaoMusica');
+
+  @override
+  Duration get duracaoMusica {
+    _$duracaoMusicaAtom.context.enforceReadPolicy(_$duracaoMusicaAtom);
+    _$duracaoMusicaAtom.reportObserved();
+    return super.duracaoMusica;
+  }
+
+  @override
+  set duracaoMusica(Duration value) {
+    _$duracaoMusicaAtom.context.conditionallyRunInAction(() {
+      super.duracaoMusica = value;
+      _$duracaoMusicaAtom.reportChanged();
+    }, _$duracaoMusicaAtom, name: '${_$duracaoMusicaAtom.name}_set');
+  }
+
+  final _$tempoDaMusicaAtom = Atom(name: '_PlayerMusicBase.tempoDaMusica');
+
+  @override
+  Duration get tempoDaMusica {
+    _$tempoDaMusicaAtom.context.enforceReadPolicy(_$tempoDaMusicaAtom);
+    _$tempoDaMusicaAtom.reportObserved();
+    return super.tempoDaMusica;
+  }
+
+  @override
+  set tempoDaMusica(Duration value) {
+    _$tempoDaMusicaAtom.context.conditionallyRunInAction(() {
+      super.tempoDaMusica = value;
+      _$tempoDaMusicaAtom.reportChanged();
+    }, _$tempoDaMusicaAtom, name: '${_$tempoDaMusicaAtom.name}_set');
+  }
+
   final _$buscarBandaAsyncAction = AsyncAction('buscarBanda');
 
   @override
@@ -115,10 +160,19 @@ mixin _$PlayerMusicController on _PlayerMusicBase, Store {
         .run(() => super.tocarOuPausarMusica());
   }
 
+  final _$monitorarProgressoDaMusicaAsyncAction =
+      AsyncAction('monitorarProgressoDaMusica');
+
+  @override
+  Future<void> monitorarProgressoDaMusica(Duration d) {
+    return _$monitorarProgressoDaMusicaAsyncAction
+        .run(() => super.monitorarProgressoDaMusica(d));
+  }
+
   @override
   String toString() {
     final string =
-        'bandaModel: ${bandaModel.toString()},bandFuture: ${bandFuture.toString()},faixa: ${faixa.toString()},audioPlayer: ${audioPlayer.toString()},musicaTocando: ${musicaTocando.toString()},musica: ${musica.toString()}';
+        'bandaModel: ${bandaModel.toString()},bandFuture: ${bandFuture.toString()},faixa: ${faixa.toString()},audioPlayer: ${audioPlayer.toString()},musicaTocando: ${musicaTocando.toString()},duracaoMusica: ${duracaoMusica.toString()},tempoDaMusica: ${tempoDaMusica.toString()},musica: ${musica.toString()},tempoTotal: ${tempoTotal.toString()},tempoProgredido: ${tempoProgredido.toString()}';
     return '{$string}';
   }
 }
