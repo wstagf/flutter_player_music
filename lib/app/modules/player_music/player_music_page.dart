@@ -118,14 +118,14 @@ class _PlayerMusicPageState
           ),
         ),
         Container(
-          padding: EdgeInsets.only(top: 10, right: 35, left: 35),
+          padding: EdgeInsets.only(top: 30, right: 40, left: 35),
           child: Row(
             children: <Widget>[
               Text('0:15'),
               Expanded(
                 child: Container(),
               ),
-              Text('2:35'),
+              Text(controller.tempoTotal()),
             ],
           ),
         )
