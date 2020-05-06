@@ -23,6 +23,7 @@ dependencies:
   audioplayer2: ^0.5.2
   json_annotation:  ^3.0.1
   flutter_modular: ^1.1.2
+  seekbar: ^0.0.2
   flutter:
     sdk: flutter
 
