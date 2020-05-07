@@ -137,7 +137,7 @@ abstract class _PlayerMusicBase with Store {
 
   @action
   pararMusica() {
-    audioPlayer.stop;
+    audioPlayer.stop();
     tempoDaMusica = Duration.zero;
     duracaoMusica = Duration.zero;
     percentProgredido = 0.0;
@@ -145,9 +145,17 @@ abstract class _PlayerMusicBase with Store {
     musicaTocando = false;
   }
 
+  @computed
+  bool get existeProximaMusica =>
+      bandaModel != null ? bandaModel.musicas.length > faixa : false;
+
+  @computed
+  bool get existeAnteriorMusica => bandaModel != null ? faixa > 0 : false;
+
   @action
   void proximaMusica() {
     faixa++;
     pararMusica();
+    tocarOuPausarMusica();
   }
 }
