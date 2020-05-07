@@ -140,6 +140,7 @@ abstract class _PlayerMusicBase with Store {
     audioPlayer.stop();
     musicaTocando = false;
     tempoDaMusica = Duration.zero;
+    duracaoMusica = Duration.zero;
   }
 
   @computed
