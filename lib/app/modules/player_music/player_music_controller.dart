@@ -135,4 +135,13 @@ abstract class _PlayerMusicBase with Store {
     audioPlayer.seek(value * duracaoMusicaEmSegundos);
   }
 
+  @action
+  pararMusica() {
+    audioPlayer.stop;
+    tempoDaMusica = Duration.zero;
+    duracaoMusica = Duration.zero;
+    percentProgredido = 0.0;
+    duracaoMusicaEmSegundos = 0;
+    musicaTocando = false;
+  }
 }
