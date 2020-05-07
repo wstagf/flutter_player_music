@@ -136,26 +136,25 @@ abstract class _PlayerMusicBase with Store {
   }
 
   @action
-  pararMusica() {
+  void pararMusica() {
     audioPlayer.stop();
-    tempoDaMusica = Duration.zero;
-    duracaoMusica = Duration.zero;
-    percentProgredido = 0.0;
-    duracaoMusicaEmSegundos = 0;
     musicaTocando = false;
+    tempoDaMusica = Duration.zero;
   }
 
   @computed
   bool get existeProximaMusica =>
-      bandaModel != null ? bandaModel.musicas.length > faixa : false;
+      bandaModel != null ? bandaModel.musicas.length - 1 > faixa : false;
 
   @computed
   bool get existeAnteriorMusica => bandaModel != null ? faixa > 0 : false;
 
   @action
   void proximaMusica() {
-    faixa++;
-    pararMusica();
-    tocarOuPausarMusica();
+    if (existeProximaMusica) {
+      faixa++;
+      pararMusica();
+      tocarOuPausarMusica();
+    }
   }
 }

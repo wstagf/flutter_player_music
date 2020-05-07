@@ -243,7 +243,7 @@ mixin _$PlayerMusicController on _PlayerMusicBase, Store {
   }
 
   @override
-  dynamic pararMusica() {
+  void pararMusica() {
     final _$actionInfo = _$_PlayerMusicBaseActionController.startAction();
     try {
       return super.pararMusica();
