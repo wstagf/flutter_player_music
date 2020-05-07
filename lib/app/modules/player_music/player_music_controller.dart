@@ -155,7 +155,6 @@ abstract class _PlayerMusicBase with Store {
     if (existeProximaMusica) {
       faixa++;
       pararMusica();
-      tocarOuPausarMusica();
     }
   }
 
@@ -164,7 +163,6 @@ abstract class _PlayerMusicBase with Store {
     if (existeAnteriorMusica) {
       faixa--;
       pararMusica();
-      tocarOuPausarMusica();
     }
   }
 }
