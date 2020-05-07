@@ -93,7 +93,9 @@ class _PlayerMusicPageState
               Icons.skip_previous,
               size: 40,
             ),
-            onPressed: () {},
+            onPressed: () {
+              controller.musicaAnterior();
+            },
           ),
           Expanded(
             child: FlatButton(

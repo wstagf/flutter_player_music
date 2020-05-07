@@ -157,4 +157,13 @@ abstract class _PlayerMusicBase with Store {
       tocarOuPausarMusica();
     }
   }
+
+  @action
+  void musicaAnterior() {
+    if (existeAnteriorMusica) {
+      faixa--;
+      pararMusica();
+      tocarOuPausarMusica();
+    }
+  }
 }
