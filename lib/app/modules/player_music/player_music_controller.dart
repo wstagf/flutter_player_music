@@ -144,4 +144,10 @@ abstract class _PlayerMusicBase with Store {
     duracaoMusicaEmSegundos = 0;
     musicaTocando = false;
   }
+
+  @action
+  void proximaMusica() {
+    faixa++;
+    pararMusica();
+  }
 }

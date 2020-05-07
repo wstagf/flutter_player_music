@@ -111,7 +111,9 @@ class _PlayerMusicPageState
               Icons.skip_next,
               size: 40,
             ),
-            onPressed: () {},
+            onPressed: () {
+              controller.proximaMusica();
+            },
           ),
         ],
       ),

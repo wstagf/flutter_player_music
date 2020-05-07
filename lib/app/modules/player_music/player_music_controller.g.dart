@@ -241,6 +241,16 @@ mixin _$PlayerMusicController on _PlayerMusicBase, Store {
   }
 
   @override
+  void proximaMusica() {
+    final _$actionInfo = _$_PlayerMusicBaseActionController.startAction();
+    try {
+      return super.proximaMusica();
+    } finally {
+      _$_PlayerMusicBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
         'bandaModel: ${bandaModel.toString()},bandFuture: ${bandFuture.toString()},faixa: ${faixa.toString()},audioPlayer: ${audioPlayer.toString()},musicaTocando: ${musicaTocando.toString()},duracaoMusica: ${duracaoMusica.toString()},tempoDaMusica: ${tempoDaMusica.toString()},percentProgredido: ${percentProgredido.toString()},duracaoMusicaEmSegundos: ${duracaoMusicaEmSegundos.toString()},musica: ${musica.toString()},tempoTotal: ${tempoTotal.toString()},tempoProgredido: ${tempoProgredido.toString()}';
