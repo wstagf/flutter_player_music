@@ -23,8 +23,10 @@ class _PlayerMusicPageState
     // TODO: implement initState
     controller.buscarBanda(widget.banda.id);
 
-    controller.audioPlayer.onAudioPositionChanged
-        .listen((d) => controller.monitorarProgressoDaMusica(d));
+    controller.audioPlayer.onAudioPositionChanged.listen((d) => {
+          controller.monitorarProgressoDaMusica(d),
+          controller.calcPercentProgredido()
+        });
   }
 
   @override
@@ -115,7 +117,7 @@ class _PlayerMusicPageState
         Container(
           padding: EdgeInsets.only(top: 30, right: 35, left: 35),
           child: SeekBar(
-            value: controller.totalTempoDecorrido,
+            value: controller.percentProgredido,
             onStartTrackingTouch: () {},
             onProgressChanged: (value) {},
           ),

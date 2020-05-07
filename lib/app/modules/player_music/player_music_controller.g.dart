@@ -25,12 +25,6 @@ mixin _$PlayerMusicController on _PlayerMusicBase, Store {
   String get tempoProgredido => (_$tempoProgredidoComputed ??=
           Computed<String>(() => super.tempoProgredido))
       .value;
-  Computed<double> _$totalTempoDecorridoComputed;
-
-  @override
-  double get totalTempoDecorrido => (_$totalTempoDecorridoComputed ??=
-          Computed<double>(() => super.totalTempoDecorrido))
-      .value;
 
   final _$bandaModelAtom = Atom(name: '_PlayerMusicBase.bandaModel');
 
@@ -151,6 +145,24 @@ mixin _$PlayerMusicController on _PlayerMusicBase, Store {
     }, _$tempoDaMusicaAtom, name: '${_$tempoDaMusicaAtom.name}_set');
   }
 
+  final _$percentProgredidoAtom =
+      Atom(name: '_PlayerMusicBase.percentProgredido');
+
+  @override
+  double get percentProgredido {
+    _$percentProgredidoAtom.context.enforceReadPolicy(_$percentProgredidoAtom);
+    _$percentProgredidoAtom.reportObserved();
+    return super.percentProgredido;
+  }
+
+  @override
+  set percentProgredido(double value) {
+    _$percentProgredidoAtom.context.conditionallyRunInAction(() {
+      super.percentProgredido = value;
+      _$percentProgredidoAtom.reportChanged();
+    }, _$percentProgredidoAtom, name: '${_$percentProgredidoAtom.name}_set');
+  }
+
   final _$buscarBandaAsyncAction = AsyncAction('buscarBanda');
 
   @override
@@ -175,10 +187,23 @@ mixin _$PlayerMusicController on _PlayerMusicBase, Store {
         .run(() => super.monitorarProgressoDaMusica(d));
   }
 
+  final _$_PlayerMusicBaseActionController =
+      ActionController(name: '_PlayerMusicBase');
+
+  @override
+  void calcPercentProgredido() {
+    final _$actionInfo = _$_PlayerMusicBaseActionController.startAction();
+    try {
+      return super.calcPercentProgredido();
+    } finally {
+      _$_PlayerMusicBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     final string =
-        'bandaModel: ${bandaModel.toString()},bandFuture: ${bandFuture.toString()},faixa: ${faixa.toString()},audioPlayer: ${audioPlayer.toString()},musicaTocando: ${musicaTocando.toString()},duracaoMusica: ${duracaoMusica.toString()},tempoDaMusica: ${tempoDaMusica.toString()},musica: ${musica.toString()},tempoTotal: ${tempoTotal.toString()},tempoProgredido: ${tempoProgredido.toString()},totalTempoDecorrido: ${totalTempoDecorrido.toString()}';
+        'bandaModel: ${bandaModel.toString()},bandFuture: ${bandFuture.toString()},faixa: ${faixa.toString()},audioPlayer: ${audioPlayer.toString()},musicaTocando: ${musicaTocando.toString()},duracaoMusica: ${duracaoMusica.toString()},tempoDaMusica: ${tempoDaMusica.toString()},percentProgredido: ${percentProgredido.toString()},musica: ${musica.toString()},tempoTotal: ${tempoTotal.toString()},tempoProgredido: ${tempoProgredido.toString()}';
     return '{$string}';
   }
 }
