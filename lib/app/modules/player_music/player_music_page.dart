@@ -153,9 +153,16 @@ class _PlayerMusicPageState
     return Column(
       children: <Widget>[
         Container(
+          width: MediaQuery.of(context).size.width * 0.8,
           child: Text(
             musica.nome,
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+            overflow: TextOverflow.fade,
+            maxLines: 1,
+            softWrap: false,
           ),
         ),
         Container(
