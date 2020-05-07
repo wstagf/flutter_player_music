@@ -67,8 +67,15 @@ abstract class _PlayerMusicBase with Store {
         musicaTocando = false;
       } else {
         await audioPlayer.play(base_url + musica.url);
-        Future.delayed(Duration(milliseconds: 500),
-            () => duracaoMusica = audioPlayer.duration);
+        Future.delayed(
+            Duration(seconds: 1),
+            () => {
+                  duracaoMusica = audioPlayer.duration,
+                  duracaoMusicaEmSegundos = duracaoMusica.inSeconds +
+                      (duracaoMusica.inMinutes * 60) +
+                      (duracaoMusica.inHours * 3600) +
+                      (duracaoMusica.inDays * 86400)
+                });
         musicaTocando = true;
       }
     }
@@ -101,23 +108,17 @@ abstract class _PlayerMusicBase with Store {
   @observable
   double percentProgredido = 0.0;
 
+  @observable
+  int duracaoMusicaEmSegundos = 0;
+
   @action
   void calcPercentProgredido() {
-    var duracaoMusicaEmSegundos = 0;
     var tempoDecorridoEmSegundos = 0;
 
     if (duracaoMusica != null) {
-      if (duracaoMusica.inDays == 0 &&
-          duracaoMusica.inHours == 0 &&
-          duracaoMusica.inMinutes == 0 &&
-          duracaoMusica.inSeconds == 0) {
+      if (duracaoMusicaEmSegundos == 0) {
         percentProgredido = 0.0;
       } else {
-        duracaoMusicaEmSegundos = duracaoMusica.inSeconds +
-            (duracaoMusica.inMinutes * 60) +
-            (duracaoMusica.inHours * 3600) +
-            (duracaoMusica.inDays * 86400);
-
         tempoDecorridoEmSegundos = tempoDaMusica.inSeconds +
             (tempoDaMusica.inMinutes * 60) +
             (tempoDaMusica.inHours * 3600) +
@@ -128,4 +129,10 @@ abstract class _PlayerMusicBase with Store {
       percentProgredido = 0.0;
     }
   }
+
+  @action
+  irParaTempoDaMusica(double value) {
+    audioPlayer.seek(value * duracaoMusicaEmSegundos);
+  }
+
 }

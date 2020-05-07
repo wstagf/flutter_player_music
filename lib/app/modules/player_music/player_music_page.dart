@@ -119,7 +119,9 @@ class _PlayerMusicPageState
           child: SeekBar(
             value: controller.percentProgredido,
             onStartTrackingTouch: () {},
-            onProgressChanged: (value) {},
+            onProgressChanged: (value) {
+              controller.irParaTempoDaMusica(value);
+            },
           ),
         ),
         Container(

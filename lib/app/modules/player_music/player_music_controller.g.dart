@@ -163,6 +163,26 @@ mixin _$PlayerMusicController on _PlayerMusicBase, Store {
     }, _$percentProgredidoAtom, name: '${_$percentProgredidoAtom.name}_set');
   }
 
+  final _$duracaoMusicaEmSegundosAtom =
+      Atom(name: '_PlayerMusicBase.duracaoMusicaEmSegundos');
+
+  @override
+  int get duracaoMusicaEmSegundos {
+    _$duracaoMusicaEmSegundosAtom.context
+        .enforceReadPolicy(_$duracaoMusicaEmSegundosAtom);
+    _$duracaoMusicaEmSegundosAtom.reportObserved();
+    return super.duracaoMusicaEmSegundos;
+  }
+
+  @override
+  set duracaoMusicaEmSegundos(int value) {
+    _$duracaoMusicaEmSegundosAtom.context.conditionallyRunInAction(() {
+      super.duracaoMusicaEmSegundos = value;
+      _$duracaoMusicaEmSegundosAtom.reportChanged();
+    }, _$duracaoMusicaEmSegundosAtom,
+        name: '${_$duracaoMusicaEmSegundosAtom.name}_set');
+  }
+
   final _$buscarBandaAsyncAction = AsyncAction('buscarBanda');
 
   @override
@@ -201,9 +221,19 @@ mixin _$PlayerMusicController on _PlayerMusicBase, Store {
   }
 
   @override
+  dynamic irParaTempoDaMusica(double value) {
+    final _$actionInfo = _$_PlayerMusicBaseActionController.startAction();
+    try {
+      return super.irParaTempoDaMusica(value);
+    } finally {
+      _$_PlayerMusicBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
-        'bandaModel: ${bandaModel.toString()},bandFuture: ${bandFuture.toString()},faixa: ${faixa.toString()},audioPlayer: ${audioPlayer.toString()},musicaTocando: ${musicaTocando.toString()},duracaoMusica: ${duracaoMusica.toString()},tempoDaMusica: ${tempoDaMusica.toString()},percentProgredido: ${percentProgredido.toString()},musica: ${musica.toString()},tempoTotal: ${tempoTotal.toString()},tempoProgredido: ${tempoProgredido.toString()}';
+        'bandaModel: ${bandaModel.toString()},bandFuture: ${bandFuture.toString()},faixa: ${faixa.toString()},audioPlayer: ${audioPlayer.toString()},musicaTocando: ${musicaTocando.toString()},duracaoMusica: ${duracaoMusica.toString()},tempoDaMusica: ${tempoDaMusica.toString()},percentProgredido: ${percentProgredido.toString()},duracaoMusicaEmSegundos: ${duracaoMusicaEmSegundos.toString()},musica: ${musica.toString()},tempoTotal: ${tempoTotal.toString()},tempoProgredido: ${tempoProgredido.toString()}';
     return '{$string}';
   }
 }
