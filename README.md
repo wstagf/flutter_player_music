@@ -10,7 +10,6 @@
 
   * http://www.dominiopublico.gov.br/pesquisa/ResultadoPesquisaObraForm.do
 
-* Continuar
-  * Aula 04, 15:00
-  * corrigir codigo totalTempoDecorrido 
-  
+* To-do
+  * Corririgr issues
+  * Subir backend na nuvem
